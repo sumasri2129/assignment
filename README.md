@@ -1,10 +1,14 @@
 **OVERVIEW:**
 
-Whenever the associated account publishes a SNS message then lambda will get triggered and read the message. It will find the important information like email, phone, address and store it in MySQL database.
-I have created a SNS topic and gave access to publish message from mentioned account number (875938798788) in the assignment.
-I wrote a python script (lambda.py) which will trigger the lambda function upon publishing message to SNS.
-I have created MySQL RDS from AWS console where we can store sensitive information.
-I have created two tables in MySQL DB one is for storing sensitive information like email, phone, address and another to save the execution status and ingestion time in audit MYSQL table on assignment database over RDS MySQL.
+-Whenever the associated account publishes a SNS message then lambda will get triggered and read the message. It will find the important information like email, phone, address and store it in MySQL database.
+
+-I have created a SNS topic and gave access to publish message from mentioned account number (875938798788) in the assignment.
+
+-I wrote a python script (lambda.py) which will trigger the lambda function upon publishing message to SNS.
+
+-I have created MySQL RDS from AWS console where we can store sensitive information.
+
+-I have created two tables in MySQL DB one is for storing sensitive information like email, phone, address and another to save the execution status and ingestion time in audit MYSQL table on assignment database over RDS MySQL.
 
 **Q1)** An SNS message is posted from one of our AWS accounts (AWS account ID 875938798788). The SNS topic while remaining private should be configured to accept messages from our account.
 
