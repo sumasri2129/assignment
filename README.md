@@ -1,14 +1,14 @@
-OVERVIEW:
+**OVERVIEW:**
 
-	Whenever the associated account publishes a SNS message then lambda will get triggered and read the message. It will find the important information like email, phone, address and store it in MySQL database.
-	I have created a SNS topic and gave access to publish message from mentioned account number (875938798788) in the assignment.
-	I wrote a python script (lambda.py) which will trigger the lambda function upon publishing message to SNS.
-	I have created MySQL RDS from AWS console where we can store sensitive information.
-	I have created two tables in MySQL DB one is for storing sensitive information like email, phone, address and another to save the execution status and ingestion time in audit MYSQL table on assignment database over RDS MySQL.
+Whenever the associated account publishes a SNS message then lambda will get triggered and read the message. It will find the important information like email, phone, address and store it in MySQL database.
+I have created a SNS topic and gave access to publish message from mentioned account number (875938798788) in the assignment.
+I wrote a python script (lambda.py) which will trigger the lambda function upon publishing message to SNS.
+I have created MySQL RDS from AWS console where we can store sensitive information.
+I have created two tables in MySQL DB one is for storing sensitive information like email, phone, address and another to save the execution status and ingestion time in audit MYSQL table on assignment database over RDS MySQL.
 
-Q1) An SNS message is posted from one of our AWS accounts (AWS account ID 875938798788). The SNS topic while remaining private should be configured to accept messages from our account.
+**Q1)** An SNS message is posted from one of our AWS accounts (AWS account ID 875938798788). The SNS topic while remaining private should be configured to accept messages from our account.
 
-A) I have created a SNS topic with name “assignment” and gave access to 875938798788 with below access policy: -
+**A)** I have created a SNS topic with name “assignment” and gave access to 875938798788 with below access policy: -
 {
 "Version": "2008-10-17",
 "Id": "__default_policy_ID",
@@ -57,12 +57,12 @@ A) I have created a SNS topic with name “assignment” and gave access to 8759
 Screenshot of created SNS topic:-
  
 
-Q2) The message content will be delimited by white space and could contain garbage text up to the message limits. In amongst the garbage, you may find
+**Q2)** The message content will be delimited by white space and could contain garbage text up to the message limits. In amongst the garbage, you may find
 a.	an email address
 b.	a phone number
 c.	a postal code
 d.	all of the above
-A) I have created below python script to be used by Lambda function upon arriving any SNS message on “assignment” topic. It will find the required information like phone,email,address and I have also created MySQL database from aws console where we can store the important information and one record for each message.
+**A)** I have created below python script to be used by Lambda function upon arriving any SNS message on “assignment” topic. It will find the required information like phone,email,address and I have also created MySQL database from aws console where we can store the important information and one record for each message.
 
 import json
 import re
@@ -79,13 +79,13 @@ postal_code = re.findall(r'\b\d{5}\b', message_str, flags=0)
 if email_id:
 a.	print(str(email_id) + " " + str(phone_number) + " " + str(postal_code))
 
-Connection from lambda to RDS:
+**Connection from lambda to RDS**:
 I have connected lambda function with RDS by using custom pymsql level (ARN: arn:aws:lambda:us-east-1:770693421928:layer:Klayers-python38-PyMySQL:4) at lambda and then I have imported pymysql library in lambda function.
 
-Meanwhile in production environment:
+**Meanwhile in production environment:**
 we can create a custom lambda layer by running, packaging and uploading the pip installer module in zip format to s3. 
 
-Connection to RDS MySQL
+**Connection to RDS MySQL**
 
 Below is code snippet written to make connection with RDS MySQL, create table and store the important information in it.
 
@@ -119,9 +119,9 @@ print("Failed to insert into MySQL table {}".format(error))
 QUERY_STATUS = "Failed"
 
 
-Q3) A record of the ingested message, when it was ingested, and the execution status is kept somewhere in the system as an audit trail
+**Q3)** A record of the ingested message, when it was ingested, and the execution status is kept somewhere in the system as an audit trail
 
-A) Below code helps to save the execution status and ingestion time in audit MYSQL table on assignment database over RDS MySQL.
+**A)** Below code helps to save the execution status and ingestion time in audit MYSQL table on assignment database over RDS MySQL.
 
 cur.execute("SELECT  MAX(created_ts) FROM details2")
 for QUERY_EXECUTION_TIMESTAMP in cur:
