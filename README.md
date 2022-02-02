@@ -62,6 +62,7 @@ a.	an email address
 b.	a phone number
 c.	a postal code
 d.	all of the above
+
 **A)** I have created below python script to be used by Lambda function upon arriving any SNS message on “assignment” topic. It will find the required information like phone,email,address and I have also created MySQL database from aws console where we can store the important information and one record for each message.
 
 import json
@@ -75,7 +76,6 @@ r"\.[A-Za-z]{2,4}"
 r"\.[A-Za-z]{2,4}", message_str)
 phone_number = re.findall(r'\b\d{10}\b', message_str, flags=0)
 postal_code = re.findall(r'\b\d{5}\b', message_str, flags=0)
-# printing the list output
 if email_id:
 a.	print(str(email_id) + " " + str(phone_number) + " " + str(postal_code))
 
